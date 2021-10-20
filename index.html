@@ -10,7 +10,8 @@
     <title>LEZTOVTA</title>
 </head>
 
-<body style="
+<body
+    style="
 display: flex; 
 flex-direction: column; 
 
@@ -31,8 +32,7 @@ background-image: url(https://www.blauweeik.nl/wp-content/uploads/Makelaar-Utrec
         
         justify-content: center; 
         align-items: center;
-"
-        x-data="{email:null, count: null}" x-init="fetch('http://localhost:3000/count')
+" x-data="{email:null, count: null}" x-init="fetch('http://localhost:3000/count')
     .then(response=> {
         if (!response.ok) alert(`Something went wrong: ${response.status} - ${response.statusText}`)
         return response.json()
@@ -52,10 +52,18 @@ background-image: url(https://www.blauweeik.nl/wp-content/uploads/Makelaar-Utrec
                 </div>
                 <button class="btn btn-primary" @click="fetch('/increment', {
                 method: 'POST',
-                body: JSON.stringify({})
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                  },
+                body: JSON.stringify({email})
                 }).then(response => {
                     if (response.ok) {
-                        count = count+1
+                        if(count){
+                            count = count+1
+                        }else {
+                            count = 1;
+                        }
                     }
                 })"
                     class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-blue-700 rounded shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none">
