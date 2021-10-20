@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>LEZTOVTA</title>
+</head>
+
+<body style="
+display: flex; 
+flex-direction: column; 
+
+flex: 1 0 100%; 
+height: 100vh;
+background-image: url(https://www.blauweeik.nl/wp-content/uploads/Makelaar-Utrecht-Blauwe-Eik-Makelaardij-Verkoopt-in-De-Meern-3-1880x940.jpg);">
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4 text-center">Land en Zee trotseren om Vleuten te Annexeren</h1>
+            <p class="lead text-center">Teken de petitie en help onze droom waar te maken!</p>
+        </div>
+    </div>
+    <div style="
+        flex: 1;
+
+        display: flex; 
+        flex-direction: column;
+        
+        justify-content: center; 
+        align-items: center;
+"
+        x-data="{email:null, count: null}" x-init="fetch('http://localhost:3000/count')
+    .then(response=> {
+        if (!response.ok) alert(`Something went wrong: ${response.status} - ${response.statusText}`)
+        return response.json()
+    })
+    .then(data => count = data.count)">
+        <div class="card" style="max-height: 20em; max-width: 20em;">
+            <div class="card-body"
+                style="display: flex; flex-direction: column; justify-content: center; align-items: center; row-gap: 1em;">
+                <h6>Al <span x-text="count"></span> mensen doen er mee!</h6>
+                <div class="">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Email</span>
+                        </div>
+                        <input x-model="email" id="email" class="form-control" aria-label="Email"></input>
+                    </div>
+                </div>
+                <button class="btn btn-primary" @click="fetch('/increment', {
+                method: 'POST',
+                body: JSON.stringify({})
+                }).then(response => {
+                    if (response.ok) {
+                        count = count+1
+                    }
+                })"
+                    class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-blue-700 rounded shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none">
+                    Doe mee
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+</body>
+
+
+</html>
